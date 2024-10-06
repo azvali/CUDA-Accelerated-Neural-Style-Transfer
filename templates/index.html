@@ -8,7 +8,37 @@
 </head>
 <body>
     <div class="header">
-        
+        <div class="logoPlaceholder"></div>
+        <div class="title">
+            <h1>CUDA Accelerated Neural Style Transfer</h1>
+        </div>
+    </div>
+    <div class="body">
+        <div class="leftBody">
+            <div class="inputSection">
+                <!-- Original Image Upload -->
+                <div class="originalImage">
+                    <h2>Original Image</h2>
+                    <div class="originalPreview"></div>
+                    <input class="uploadButton" type="file" id="originalImageUpload" accept="image/*">
+                </div>
+
+                <!-- Style Wanted Upload -->
+                <div class="wantedStyle">
+                    <h2>Style Wanted</h2>
+                    <div class="stylePreview"></div>
+                    <input class="uploadButton" type="file" id="styleImageUpload" accept="image/*">
+                </div>
+            </div>
+        </div>
+
+        <div class="rightBody">
+            <!-- Output for Styled Image -->
+        </div>
+    </div>
+
+    <div class="footer">
+        <!-- Footer Content -->
     </div>
 </body>
 </html>
