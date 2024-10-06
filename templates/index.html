@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Neural Style Transfer</title>
     <link rel="stylesheet" href="{{url_for('static', filename='css/style.css')}}">
 </head>
 <body>
@@ -19,21 +19,40 @@
                 
                 <div class="originalImage">
                     <h2>Original Image</h2>
-                    <div class="originalPreview"></div>
+                    <img class="originalPreview" id="originalImagePreview">
                     <input class="uploadButton" type="file" id="originalImageUpload" accept="image/*">
+
+
+
                 </div>
 
                 
                 <div class="wantedStyle">
                     <h2>Style Wanted</h2>
-                    <div class="stylePreview"></div>
-                    <input class="uploadButton" type="file" id="styleImageUpload" accept="image/*">
+                    <img class="stylePreview" id="styleImagePreview">
+                    <input class="uploadButton" diplay=none type="file" id="styleImageUpload" accept="image/*">
+
+
+
+
                 </div>
             </div>
-            <button class="convertButton">Convert</button>
+            <div class="convertButtons">
+                <button class="convertCUDA">Convert with CUDA</button>
+                <button class="converCPU">Convert with CPU</button>
+            </div>
         </div>
 
         <div class="rightBody">
+            <div class="title">
+                <h2>New Image</h2>
+            </div>
+            <div class="newImageOutput">
+                
+            </div>
+            <div class="statsAndDownload">
+
+            </div>
             
         </div>
     </div>
@@ -41,5 +60,66 @@
     <div class="footer">
         
     </div>
+
+    <script>
+
+        <!--event listener for original upload-->
+        document.getElementById("originalImageUpload").addEventListener('change', function(event){
+            let image = event.target.files[0];
+
+            if(image){
+                let reader = new FileReader();
+
+                reader.onload = function(e){
+                    console.log(e.target.result);
+
+
+                    let preview = document.getElementById("originalImagePreview");
+
+                    if(e.target.result){
+                        preview.src = e.target.result;
+                        preview.style.display = "cover";   
+                    }
+                    else{
+                        console.error("no image file selected");
+                    }
+                    
+                }
+                reader.readAsDataURL(image);
+            }
+            else{
+                console.error("no image selected");
+            }
+        });
+
+        <!--event listener for style upload-->
+        document.getElementById("styleImageUpload").addEventListener('change', function(event){
+            let image = event.target.files[0];
+
+            if(image){
+                let reader = new FileReader();
+
+                reader.onload = function(e){
+                    let preview = document.getElementById("styleImagePreview");
+
+                    if(e.target.result){
+                        preview.src = e.target.result;
+                        preview.style.display = "cover";   
+                    }
+                    else{
+                        console.error("no image file selected");
+                    }
+                    
+                }
+                reader.readAsDataURL(image);
+            }
+            else{
+                console.error("no image selected");
+            }
+        });
+
+
+
+    </script>
 </body>
 </html>
