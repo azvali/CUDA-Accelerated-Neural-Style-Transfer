@@ -1,125 +1,149 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Neural Style Transfer</title>
-    <link rel="stylesheet" href="{{url_for('static', filename='css/style.css')}}">
-</head>
-<body>
+    <link
+      rel="stylesheet"
+      href="{{url_for('static', filename='css/style.css')}}"
+    />
+  </head>
+  <body>
     <div class="header">
-        <div class="logoPlaceholder"></div>
-        <div class="title">
-            <h1>CUDA Accelerated Neural Style Transfer</h1>
-        </div>
+      <div class="logoPlaceholder"></div>
+      <div class="title">
+        <h1>CUDA Accelerated Neural Style Transfer</h1>
+      </div>
     </div>
     <div class="body">
-        <div class="leftBody">
-            <div class="inputSection">
-                
-                <div class="originalImage">
-                    <h2>Original Image</h2>
-                    <img class="originalPreview" id="originalImagePreview">
-                    <input class="uploadButton" type="file" id="originalImageUpload" accept="image/*">
+      <div class="leftBody">
+        <div class="inputSection">
+          <div class="originalImage">
+            <h2>Original Image</h2>
+            <img class="originalPreview" id="originalImagePreview" />
+            <input
+              class="uploadButton"
+              type="file"
+              id="originalImageUpload"
+              accept="image/*"
+            />
+          </div>
 
-
-
-                </div>
-
-                
-                <div class="wantedStyle">
-                    <h2>Style Wanted</h2>
-                    <img class="stylePreview" id="styleImagePreview">
-                    <input class="uploadButton" diplay=none type="file" id="styleImageUpload" accept="image/*">
-
-
-
-
-                </div>
-            </div>
-            <div class="convertButtons">
-                <button class="convertCUDA">Convert with CUDA</button>
-                <button class="converCPU">Convert with CPU</button>
-            </div>
+          <div class="wantedStyle">
+            <h2>Style Wanted</h2>
+            <img class="stylePreview" id="styleImagePreview" />
+            <input
+              class="uploadButton"
+              diplay="none"
+              type="file"
+              id="styleImageUpload"
+              accept="image/*"
+            />
+          </div>
         </div>
-
-        <div class="rightBody">
-            <div class="title">
-                <h2>New Image</h2>
-            </div>
-            <div class="newImageOutput">
-                
-            </div>
-            <div class="statsAndDownload">
-
-            </div>
-            
+        <div class="convertButtons">
+          <button class="convertCUDA">Convert with CUDA</button>
+          <button class="converCPU">Convert with CPU</button>
         </div>
+      </div>
+
+      <div class="rightBody">
+        <div class="title">
+          <h2>New Image</h2>
+        </div>
+        <div class="newImageOutput"></div>
+        <div class="statsAndDownload"></div>
+      </div>
     </div>
 
-    <div class="footer">
-        
-    </div>
+    <div class="footer"></div>
 
     <script>
+      <!--event listener for original upload-->
+      document
+        .getElementById("originalImageUpload")
+        .addEventListener("change", function (event) {
+          let image = event.target.files[0];
 
-        <!--event listener for original upload-->
-        document.getElementById("originalImageUpload").addEventListener('change', function(event){
-            let image = event.target.files[0];
+          if (image) {
+            let reader = new FileReader();
 
-            if(image){
-                let reader = new FileReader();
+            reader.onload = function (e) {
 
-                reader.onload = function(e){
-                    console.log(e.target.result);
+              let preview = document.getElementById("originalImagePreview");
 
+              if (e.target.result) {
+                preview.src = e.target.result;
+                preview.style.display = "cover";
+              } else {
+                console.error("no image file selected");
+              }
 
-                    let preview = document.getElementById("originalImagePreview");
-
-                    if(e.target.result){
-                        preview.src = e.target.result;
-                        preview.style.display = "cover";   
-                    }
-                    else{
-                        console.error("no image file selected");
-                    }
-                    
-                }
-                reader.readAsDataURL(image);
-            }
-            else{
-                console.error("no image selected");
-            }
+              fetch("/submitImage1", {
+                method: "POST",
+                headers: {
+                  "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                  image: e.target.result,
+                }),
+              })
+                .then((response) => response.text())
+                .then((data) => {
+                  console.log(data);
+                })
+                .catch((error) => {
+                  console.error("Error:", error);
+                });
+            };
+            reader.readAsDataURL(image);
+          } else {
+            console.error("no image selected");
+          }
         });
 
-        <!--event listener for style upload-->
-        document.getElementById("styleImageUpload").addEventListener('change', function(event){
-            let image = event.target.files[0];
+      <!--event listener for style upload-->
+      document
+        .getElementById("styleImageUpload")
+        .addEventListener("change", function (event) {
+          let image = event.target.files[0];
 
-            if(image){
-                let reader = new FileReader();
+          if (image) {
+            let reader = new FileReader();
 
-                reader.onload = function(e){
-                    let preview = document.getElementById("styleImagePreview");
+            reader.onload = function (e) {
+              let preview = document.getElementById("styleImagePreview");
 
-                    if(e.target.result){
-                        preview.src = e.target.result;
-                        preview.style.display = "cover";   
-                    }
-                    else{
-                        console.error("no image file selected");
-                    }
-                    
-                }
-                reader.readAsDataURL(image);
-            }
-            else{
-                console.error("no image selected");
-            }
+              if (e.target.result) {
+                preview.src = e.target.result;
+                preview.style.display = "cover";
+              } else {
+                console.error("no image file selected");
+              }
+
+              fetch("/submitImage2", {
+                method: "POST",
+                headers: {
+                  "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                  image: e.target.result,
+                }),
+              })
+                .then((response) => response.text())
+                .then((data) => {
+                  console.log(data);
+                })
+                .catch((error) => {
+                  console.error("Error:", error);
+                });
+            };
+            reader.readAsDataURL(image);
+          } else {
+            console.error("no image selected");
+          }
         });
-
-
-
     </script>
-</body>
+  </body>
 </html>
