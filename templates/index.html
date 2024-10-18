@@ -43,8 +43,10 @@
           </div>
         </div>
         <div class="convertButtons">
-          <button class="convertCUDA">Convert with CUDA</button>
-          <button class="converCPU">Convert with CPU</button>
+          <button class="convertCUDA" id="convertCUDA">
+            Convert with CUDA
+          </button>
+          <button class="convertCPU" id="convertCPU">Convert with CPU</button>
         </div>
       </div>
 
@@ -60,53 +62,43 @@
     <div class="footer"></div>
 
     <script>
-      <!--event listener for original upload-->
-      document
-        .getElementById("originalImageUpload")
-        .addEventListener("change", function (event) {
+
+
+      // global containers for base64 images
+      let original_base64 = "";
+      let style_base64 = "";
+
+
+
+
+
+      // original image upload
+      document.getElementById("originalImageUpload").addEventListener("change", function (event) {
           let image = event.target.files[0];
 
           if (image) {
             let reader = new FileReader();
 
             reader.onload = function (e) {
-
               let preview = document.getElementById("originalImagePreview");
 
               if (e.target.result) {
                 preview.src = e.target.result;
-                preview.style.display = "cover";
+                preview.style.display = "cover"; 
+                original_base64 = e.target.result; //update global variable
+                console.log(original_base64);
               } else {
-                console.error("no image file selected");
+                console.error("No image file selected");
               }
-
-              fetch("/submitImage1", {
-                method: "POST",
-                headers: {
-                  "Content-Type": "application/json",
-                },
-                body: JSON.stringify({
-                  image: e.target.result,
-                }),
-              })
-                .then((response) => response.text())
-                .then((data) => {
-                  console.log(data);
-                })
-                .catch((error) => {
-                  console.error("Error:", error);
-                });
             };
-            reader.readAsDataURL(image);
+            reader.readAsDataURL(image); 
           } else {
-            console.error("no image selected");
+            console.error("No image selected");
           }
         });
 
-      <!--event listener for style upload-->
-      document
-        .getElementById("styleImageUpload")
-        .addEventListener("change", function (event) {
+      // style image upload
+      document.getElementById("styleImageUpload").addEventListener("change", function (event) {
           let image = event.target.files[0];
 
           if (image) {
@@ -117,31 +109,87 @@
 
               if (e.target.result) {
                 preview.src = e.target.result;
-                preview.style.display = "cover";
+                preview.style.display = "cover"; 
+                style_base64 = e.target.result; // update global variable
+                console.log(style_base64);
               } else {
-                console.error("no image file selected");
+                console.error("No style file selected");
               }
-
-              fetch("/submitImage2", {
-                method: "POST",
-                headers: {
-                  "Content-Type": "application/json",
-                },
-                body: JSON.stringify({
-                  image: e.target.result,
-                }),
-              })
-                .then((response) => response.text())
-                .then((data) => {
-                  console.log(data);
-                })
-                .catch((error) => {
-                  console.error("Error:", error);
-                });
             };
-            reader.readAsDataURL(image);
+            reader.readAsDataURL(image); 
           } else {
-            console.error("no image selected");
+            console.error("No style image selected");
+          }
+        });
+
+
+
+
+      document.getElementById("convertCUDA").addEventListener("click", function () {
+          console.log("Converting with CUDA clicked");
+          if(original_base64 && style_base64 ){
+            fetch("/cuda_convert", {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({
+                original_image: original_base64,
+                style_image: style_base64,
+                use_cuda: true,
+              }),
+            })
+              .then((response) => response.json())
+              .then((data) => {
+                console.log("Conversion success:", data);
+              })
+              .catch((error) => {
+                console.error("Error during conversion:", error);
+              });
+          }
+          else {
+            console.warn("Please upload both the original and style images.");
+        
+            const convertButton = document.getElementById("convertCUDA");
+            convertButton.classList.add("shake-error");
+        
+            setTimeout(() => {
+              convertButton.classList.remove("shake-error");
+            }, 500);
+          }
+          });
+
+      document.getElementById("convertCPU").addEventListener("click", function () {
+          console.log("Converting with CPU clicked");
+          if (original_base64 && style_base64) {
+            fetch("/cpu_convert", {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({
+                original_image: original_base64,
+                style_image: style_base64,
+                use_cuda: false,
+              }),
+            })
+              .then((response) => response.json())
+              .then((data) => {
+                console.log("Conversion success:", data);
+              })
+              .catch((error) => {
+                console.error("Error during conversion:", error);
+              });
+          }
+          else {
+            console.warn("Please upload both the original and style images.");
+        
+            const convertButton = document.getElementById("convertCPU");
+            convertButton.classList.add("shake-error");
+        
+            setTimeout(() => {
+              convertButton.classList.remove("shake-error");
+            }, 500);
           }
         });
     </script>

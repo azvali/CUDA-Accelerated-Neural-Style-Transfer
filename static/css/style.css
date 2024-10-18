@@ -1,167 +1,180 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap");
 
 * {
-    padding: 0;
-    margin: 0;
-    box-sizing: border-box;
-    font-family: 'Roboto', sans-serif;
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  font-family: "Roboto", sans-serif;
 }
 
-
 .header {
-    width: 100%;
-    height: 150px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 0 20px;
-    background-color: #16171B;  
+  width: 100%;
+  height: 150px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 20px;
+  background-color: #16171b;
 }
 
 .header .logoPlaceholder {
-    width: 100px;
-    height: 100px;
-    background-image: url(../img/logo.png); 
-    background-size: contain;
-    background-repeat: no-repeat;
-    background-position: center;
+  width: 100px;
+  height: 100px;
+  background-image: url(../img/logo.png);
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
 }
 
 .header .title h1 {
-    font-size: 32px;
-    color: #46CEC1;  
+  font-size: 32px;
+  color: #46cec1;
 }
 
-
 .body {
-    width: 100%;
-    height: 80%;
-    padding: 20px;
-    background-color: #1D1F24;  
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between; 
+  width: 100%;
+  height: 80%;
+  padding: 20px;
+  background-color: #1d1f24;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
 }
 
 .rightBody {
-    margin-bottom: 80px;
-    background-color: #FFFFFF;  
+  margin-bottom: 80px;
+  background-color: #ffffff;
 }
-
 
 h2 {
-    margin-top: 30px;
-    color: #46CEC1; 
+  margin-top: 30px;
+  color: #46cec1;
 }
 
-
 .leftBody .inputSection input {
-    margin-bottom: 30px;
+  margin-bottom: 30px;
 }
 
 .leftBody {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    width: 48%; 
-    height: 1060px;
-    padding: 20px;
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); 
-    background-color: #1D1F24;  
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 48%;
+  height: 1060px;
+  padding: 20px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+  background-color: #1d1f24;
 }
 
-.originalImage, .wantedStyle {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: center;
-    width: 100%;
-    height: 450px; 
-    border: 1px solid #CCC;  
-    margin-bottom: 20px;
-    background-color: #F5F5F5;  
+.originalImage,
+.wantedStyle {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  height: 450px;
+  border: 1px solid #ccc;
+  margin-bottom: 20px;
+  background-color: #f5f5f5;
 }
 
-
-.originalPreview, .stylePreview {
-    width: 90%;
-    height: auto;
-    margin: 15px 0px;
-    max-height: 300px;
-    margin-bottom: 10px;
-    object-fit: contain;
-    border: 1px solid #CCC; 
+.originalPreview,
+.stylePreview {
+  width: 90%;
+  height: auto;
+  margin: 15px 0px;
+  max-height: 300px;
+  margin-bottom: 10px;
+  object-fit: contain;
 }
-
 
 .uploadButton {
-    margin-top: 10px;
-    padding: 8px 15px;
-    border: 1px solid #46CEC1; 
-    background-color: #46CEC1;  
-    color: #FFF;  
-    cursor: pointer;
-    font-size: 14px;
-    border-radius: 5px;
-    transition: background-color 0.3s ease, border-color 0.3s ease;
+  margin-top: 10px;
+  padding: 8px 15px;
+  border: 1px solid #46cec1;
+  background-color: #46cec1;
+  color: #fff;
+  cursor: pointer;
+  font-size: 14px;
+  border-radius: 5px;
+  transition: background-color 0.3s ease, border-color 0.3s ease;
 }
 
 .uploadButton:hover {
-    background-color: #3bb4a8;  
-    border-color: #3bb4a8;
+  background-color: #3bb4a8;
+  border-color: #3bb4a8;
 }
-
 
 .convertButtons {
-    margin-top: 20px;
-    display: flex;
-    justify-content: center;
-    margin-bottom: 20px;
-    gap: 15px;  
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+  gap: 15px;
 }
 
-.convertCUDA, .converCPU {
-    padding: 10px 20px;
-    border: none;
-    color: white;
-    background-color: #46CEC1;  
-    font-size: 16px;
-    cursor: pointer;
-    border-radius: 5px;
-    transition: background-color 0.3s ease, transform 0.2s ease;
+.convertCUDA,
+.convertCPU {
+  padding: 10px 20px;
+  border: none;
+  color: white;
+  background-color: #46cec1;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
-.convertCUDA:hover, .converCPU:hover {
-    background-color: #3bb4a8;  
-    transform: scale(1.05);  
+.convertCUDA:hover,
+.convertCPU:hover {
+  background-color: #3bb4a8;
+  transform: scale(1.05);
 }
 
-.convertCUDA:active, .converCPU:active {
-    transform: scale(0.98);  
+.convertCUDA:active,
+.convertCPU:active {
+  transform: scale(0.98);
 }
+
+
+@keyframes shake {
+  0% { transform: translateX(0); }
+  25% { transform: translateX(-5px); }
+  50% { transform: translateX(5px); }
+  75% { transform: translateX(-5px); }
+  100% { transform: translateX(0); }
+}
+
+.shake-error {
+  animation: shake 0.5s;
+  background-color: red;
+  color: white;
+}
+
+
 
 
 .rightBody {
-    width: 48%; 
-    height: 50vh;
-    border: 1px solid #CCC;
-    padding: 20px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: #FFF;  
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); 
+  width: 48%;
+  height: 50vh;
+  border: 1px solid #ccc;
+  padding: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #fff;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
 }
 
-
 .footer {
-    width: 100%;
-    height: 60px;
-    background-color: #16171B;  
-    color: white;
-    text-align: center;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  width: 100%;
+  height: 60px;
+  background-color: #16171b;
+  color: white;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
